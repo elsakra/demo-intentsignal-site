@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "vercel:env:push": "bash scripts/vercel-sync-env.sh"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.90.0",
