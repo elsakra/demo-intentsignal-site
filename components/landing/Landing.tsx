@@ -76,7 +76,7 @@ export function Landing({
     return buildBaseCopy(identity);
   }, [prebakedDemo, identity]);
 
-  const { h1, sub, cta, banner } = useStreamingText({
+  const { h1, sub, cta, banner, isTransitioning } = useStreamingText({
     base,
     target,
     active:
@@ -84,8 +84,18 @@ export function Landing({
       !prebakedDemo &&
       activeAnim &&
       Boolean(target),
-    rawStream: raw,
   });
+
+  const heroStatus = useMemo(() => {
+    if (isDemoParam || prebakedDemo) return null;
+    if (isTransitioning) {
+      return "Replacing the default hero with your lines on this page…";
+    }
+    if (!activeAnim) {
+      return "Drafting a one-to-one hero for this visit, then the default below is swapped in place…";
+    }
+    return null;
+  }, [isDemoParam, prebakedDemo, activeAnim, isTransitioning]);
 
   const display = useMemo(() => {
     if (isDemoParam && prebakedDemo) {
@@ -312,6 +322,7 @@ export function Landing({
               sub={display.sub}
               cta={display.cta}
               banner={display.ban}
+              statusLine={heroStatus}
             />
           </div>
         </section>

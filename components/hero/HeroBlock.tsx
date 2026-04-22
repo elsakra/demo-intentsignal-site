@@ -8,16 +8,39 @@ type Props = {
   sub: string;
   cta: string;
   banner: string | null;
+  /** Shown under optional banner while Claude streams or the in-page swap runs. */
+  statusLine?: string | null;
   onCtaClick?: () => void;
   className?: string;
 };
 
-export function HeroBlock({ h1, sub, cta, banner, onCtaClick, className }: Props) {
+export function HeroBlock({
+  h1,
+  sub,
+  cta,
+  banner,
+  statusLine,
+  onCtaClick,
+  className,
+}: Props) {
   return (
     <div className={className}>
       {banner && (
         <p className="mb-2 font-mono text-[10px] uppercase tracking-widest text-ink-3">
           {banner}
+        </p>
+      )}
+      {statusLine && (
+        <p
+          className="mb-3 flex flex-wrap items-center gap-2 font-mono text-[11px] leading-snug text-signal [text-wrap:balance]"
+          role="status"
+          aria-live="polite"
+        >
+          <span
+            className="inline-block h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-signal"
+            aria-hidden
+          />
+          {statusLine}
         </p>
       )}
       <h1 className="font-display text-[2.4rem] leading-[0.95] tracking-[-0.025em] text-ink [text-wrap:balance] sm:text-[3.2rem] md:text-[4rem] lg:text-[4.4rem] xl:text-[5.5rem] min-h-[2.1em]">
