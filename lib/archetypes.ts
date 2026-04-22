@@ -24,54 +24,55 @@ export type Archetype = {
   cta: string;
 };
 
+/** Fletch-style: category anchor first, named proof, no metaphor-as-headline. */
 const archetypes: Record<ArchetypeId, Archetype> = {
   "b2b-saas-smb": {
     id: "b2b-saas-smb",
     label: "B2B SaaS · SMB",
-    hero_h1: "Your GTM stack is *leaking pipeline.*\nWe build the plumbing that stops it.",
+    hero_h1: "The GTM engineering agency for B2B SaaS.",
     subhead:
-      "IntentSignal is a GTM engineering agency for lean B2B teams. Cold outbound, paid social, and intent data—shipped as working systems, not decks.",
-    cta: "See what we would build for you",
+      "We build outbound systems, paid ABM, and revenue infrastructure for teams your size. Same deliverables we shipped for Gainsight and Route: working code, not decks.",
+    cta: "Book a teardown call",
   },
   "b2b-saas-midmarket": {
     id: "b2b-saas-midmarket",
     label: "B2B SaaS · mid-market",
-    hero_h1: "You outgrew the *playbook* before RevOps outgrew the spreadsheet.",
+    hero_h1: "The GTM engineering agency for B2B SaaS.",
     subhead:
-      "We build outbound, paid, and on-site ID pipelines for mid-market SaaS the same way we would in-house: instrumented, testable, owner-operated.",
+      "We build the outbound systems, paid ABM campaigns, and custom revenue infrastructure that Gong, Gainsight, and Upside use to hit their numbers. Shipped as working software, not slide decks.",
     cta: "Book a teardown call",
   },
   "b2b-saas-enterprise": {
     id: "b2b-saas-enterprise",
     label: "B2B SaaS · enterprise",
-    hero_h1: "Enterprise *GTM* does not need another vendor.\nIt needs engineering.",
+    hero_h1: "GTM engineering for enterprise B2B.",
     subhead:
-      "Security review–friendly work: custom routing, data contracts, and AI copilots that sit behind your IdP, not a login wall.",
-    cta: "Scope the first 30 days",
+      "Custom routing, data contracts, and AI tools behind your IdP. We sit next to your RevOps and ship what your vendors describe in roadmaps—except we ship in weeks.",
+    cta: "Book a teardown call",
   },
   "ecomm-dtc": {
     id: "ecomm-dtc",
     label: "E‑commerce · DTC",
-    hero_h1: "Your *paid* efficiency is a first-party data problem, not a creative one.",
+    hero_h1: "GTM engineering for retail and e‑commerce brands.",
     subhead:
-      "We connect real sessions to audiences and to landing pages that change per click—so Meta and LinkedIn stop guessing who is actually on the site.",
-    cta: "Show me a rebuild plan",
+      "We connect real site and app sessions to ad audiences and to landing pages that change per visit. The same first-party + paid stack we run for high-volume retail and DTC clients.",
+    cta: "Book a teardown call",
   },
   fintech: {
     id: "fintech",
     label: "Fintech",
-    hero_h1: "The *handoff* between systems is where fintech GTM always leaks.",
+    hero_h1: "The GTM engineering agency for fintech GTM orgs.",
     subhead:
-      "We have shipped identity, routing, and scoring layers for growth-stage and late-stage fintechs—treat us like a two-person GTM eng team, not a deck shop.",
+      "Identity layers, scoring, and routing for regulated stacks. We have shipped for growth- and late-stage fintechs as an embedded GTM eng team, not a slide shop.",
     cta: "Book a teardown call",
   },
   "services-agency": {
     id: "services-agency",
     label: "Services · agency",
-    hero_h1: "Agency *margins* sit in ops: routing, resourcing, and data.",
+    hero_h1: "GTM engineering for services firms.",
     subhead:
-      "We help services firms wire CRM, ad platforms, and delivery systems so the pipeline matches how your team really sells and staffs.",
-    cta: "Map one broken route",
+      "We wire CRM, ads, and delivery so pipeline matches how you actually sell and staff. Fewer handoffs, fewer spreadsheets pretending to be a system.",
+    cta: "Book a teardown call",
   },
 };
 

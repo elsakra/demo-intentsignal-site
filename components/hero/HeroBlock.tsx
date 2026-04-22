@@ -24,7 +24,7 @@ export function HeroBlock({ h1, sub, cta, banner, onCtaClick, className }: Props
         {formatHeroH1(h1, { em: "font-light not-italic text-signal" })}
       </h1>
       <p
-        className="mt-6 max-w-[40rem] text-lg leading-[1.45] text-ink-3 [text-wrap:balance] min-h-[3.2em] md:text-[1.25rem] md:leading-relaxed"
+        className="prose-tight mt-6 max-w-[40rem] min-h-[3.2em] text-base text-ink-3 [text-wrap:balance] sm:text-[1.05rem]"
         style={{ textWrap: "balance" } as never}
       >
         {sub}
@@ -38,10 +38,10 @@ export function HeroBlock({ h1, sub, cta, banner, onCtaClick, className }: Props
           {cta} →
         </a>
         <a
-          href="#approach"
+          href="#work"
           className="text-sm text-ink-3 underline decoration-1 underline-offset-[3px] hover:decoration-signal"
         >
-          or watch the 60-sec demo ↗
+          See our work ↓
         </a>
       </div>
     </div>

@@ -11,8 +11,8 @@ const all = [
     logo: "Upside",
     tag: { kind: "matched" as const, t: "Matched · fintech" },
     num: "4.1×",
-    sub: "pipeline from same headcount · 6 months",
-    body: "Outbound motion plateaued, SDRs burning 22 min per account. We built a unified pipeline — scoring, auto-routing, and sequences keyed to intent.",
+    sub: "pipeline · same headcount · 6 months",
+    body: "Their outbound was a hand-built tangle: Apollo, Clay, Smartlead, four Google Sheets. We rebuilt it as one system with scoring, auto-routing, and sequences keyed to real-time intent. They got pipeline back in six weeks and stopped hiring SDRs to cover the gap.",
     quote:
       "They rebuilt our outbound in six weeks. We stopped hiring more SDRs.",
     by: "VP Demand · Upside",
@@ -24,9 +24,9 @@ const all = [
     tag: { kind: "ghost" as const, t: "Case 02" },
     num: "90s",
     sub: "SDR research time · down from 22 min",
-    body: "SDRs spent 30% of their day researching. We put account intel one Slack command away.",
+    body: "SDRs spent a third of their day tab-stacking research. We shipped a copilot that reads CRM, call history, and public signals, then writes the opener. It is the first AI workflow their SDRs run without a mandate.",
     quote:
-      "It is the first AI tool our SDRs actually use without being told.",
+      "It is the first AI tool our SDRs actually use without being told to.",
     by: "Director of SDR · Gainsight",
   },
   {
@@ -35,10 +35,9 @@ const all = [
     logo: "Route",
     tag: { kind: "ghost" as const, t: "Case 03" },
     num: "3.2×",
-    sub: "lower CPL · 2.8× MQL→SQL",
-    body: "Audiences flattened; paid down two quarters. We rebuilt from first-party sessions + per-click LPs.",
-    quote:
-      "We fired our agency and bought a weekend of their time instead.",
+    sub: "lower CPL · 2.8× MQL→SQL · 2Q",
+    body: "Paid was leaking. We rebuilt LinkedIn and Meta from first-party site intent and shipped per-visit landing pages. They replaced the previous agency and bought a focused build from us instead.",
+    quote: "We fired our agency and bought a weekend of their time instead.",
     by: "CMO · Route",
   },
 ] as const;
@@ -58,12 +57,12 @@ export function CaseStudies({ company }: Props) {
   const ord = orderFor(company);
   const items = ord.map((i) => all[i]!);
   return (
-    <section id="work" className="scroll-mt-20 border-b border-line py-20 md:py-28">
+    <section id="work" className="scroll-mt-20 border-b border-line bg-cream py-20 md:py-28">
       <div className="mx-auto max-w-content px-6 md:px-[72px]">
         <div className="mb-10 grid items-baseline gap-2 md:grid-cols-[120px_1fr] md:gap-12">
           <span className="font-mono text-sm text-signal">09 / 12</span>
-          <h2 className="font-display text-[2.5rem] leading-tight tracking-[-0.02em] md:text-[2.75rem]">
-            Cases, <em className="font-light not-italic text-signal">proof</em>.
+          <h2 className="font-display text-[2.5rem] leading-tight tracking-[-0.02em] text-ink md:text-[2.75rem]">
+            Cases, proof, receipts
           </h2>
         </div>
         <div className="grid grid-cols-1 gap-3.5 md:grid-cols-3">
@@ -72,7 +71,7 @@ export function CaseStudies({ company }: Props) {
               key={c.id}
               layout
               className={cn(
-                "flex min-h-[320px] flex-col border border-line bg-white p-5",
+                "flex min-h-[360px] flex-col border border-line bg-white p-5",
                 c.tag.kind === "matched" && "border-ink bg-cream-2"
               )}
               initial={{ opacity: 0, y: 8 }}
@@ -85,7 +84,7 @@ export function CaseStudies({ company }: Props) {
                   {c.logo}
                 </span>
                 {c.tag.kind === "matched" ? (
-                  <span className="font-mono text-[10px] font-medium uppercase tracking-wider text-white bg-signal px-1.5 py-0.5">
+                  <span className="bg-signal px-1.5 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wider text-white">
                     {c.tag.t}
                   </span>
                 ) : (
@@ -100,7 +99,7 @@ export function CaseStudies({ company }: Props) {
                   {c.sub}
                 </sub>
               </div>
-              <p className="mt-3 text-[13.5px] leading-relaxed text-ink-3">
+              <p className="prose-tight mt-3 text-[15px]">
                 {c.body}
               </p>
               <p className="mt-auto border-t border-dashed border-line pt-3 font-display text-sm italic leading-relaxed text-ink-3">
@@ -109,6 +108,12 @@ export function CaseStudies({ company }: Props) {
                   {c.by}
                 </span>
               </p>
+              <a
+                href="#book"
+                className="mt-3 font-mono text-[10px] text-signal hover:underline"
+              >
+                read the build →
+              </a>
             </motion.article>
           ))}
         </div>

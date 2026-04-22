@@ -5,6 +5,7 @@ import { Nav } from "@/components/Nav";
 import { HeroBlock, toPublicFromArchetype } from "@/components/hero/HeroBlock";
 import { useStreamingText } from "@/components/hero/useStreamingText";
 import { LogoStripDual } from "@/components/sections/LogoStripDual";
+import { ProblemSection } from "@/components/sections/ProblemSection";
 import { VisitorIdentityStrip } from "@/components/VisitorIdentityStrip";
 import { ServicesGrid } from "@/components/sections/ServicesGrid";
 import { HowItWorks } from "@/components/sections/HowItWorks";
@@ -30,6 +31,7 @@ type Props = {
   visitorId: string;
   identity: IdentityHeaderPayload | null;
   isDemo: boolean;
+  isAdmin: boolean;
   demoParam?: string;
   playParam?: string;
 };
@@ -39,7 +41,14 @@ function buildBaseCopy(identity: IdentityHeaderPayload | null): PublicHeroCopy {
   return toPublicFromArchetype(a);
 }
 
-export function Landing({ visitorId, identity, isDemo, demoParam, playParam }: Props) {
+export function Landing({
+  visitorId,
+  identity,
+  isDemo,
+  isAdmin,
+  demoParam,
+  playParam,
+}: Props) {
   const company0 = useMemo(
     () => toCompanyFromHeader(identity, undefined),
     [identity]
@@ -60,6 +69,8 @@ export function Landing({ visitorId, identity, isDemo, demoParam, playParam }: P
   const [streamP, setStreamP] = useState(0);
   const [t0] = useState(() => performance.now());
   const [tEl, setTEl] = useState("t + 0.00s");
+  const [stats, setStats] = useState<{ visitors: number; pipeline: number } | null>(null);
+
   const base = useMemo(() => {
     if (prebakedDemo) return prebakedDemo;
     return buildBaseCopy(identity);
@@ -91,6 +102,32 @@ export function Landing({ visitorId, identity, isDemo, demoParam, playParam }: P
     }, 200);
     return () => clearInterval(id);
   }, [t0]);
+
+  useEffect(() => {
+    let ok = true;
+    fetch("/api/visit-stats")
+      .then((r) => r.json())
+      .then((j) => {
+        if (ok && j && typeof j.visitors === "number") {
+          setStats({ visitors: j.visitors, pipeline: j.pipeline ?? 0 });
+        }
+      })
+      .catch(() => {});
+    return () => {
+      ok = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      if (window.sessionStorage.getItem("visit_bumped") === "1") return;
+      window.sessionStorage.setItem("visit_bumped", "1");
+    } catch {
+      return;
+    }
+    fetch("/api/visit-stats", { method: "POST" }).catch(() => {});
+  }, []);
 
   // SSE personalize
   useEffect(() => {
@@ -238,25 +275,37 @@ export function Landing({ visitorId, identity, isDemo, demoParam, playParam }: P
       <Rb2bBridge />
       <Nav />
       <main>
-        <section className="border-b border-line px-4 pb-20 pt-10 md:px-12 md:pb-24 md:pt-20">
+        <section className="border-b border-line bg-cream px-4 pb-16 pt-10 md:px-12 md:pb-20 md:pt-20">
           <div className="mx-auto max-w-content">
             <p className="kicker font-mono text-[11px] uppercase tracking-wider text-ink-3">
               <span
                 className="mr-1.5 inline-block h-2 w-2 translate-y-px rounded-full bg-signal"
                 style={{ boxShadow: "0 0 0 3px rgba(220,38,38,0.15)" }}
               />
-              LIVE · ONE-TO-ONE LANDING · DEMO
-              <a
-                href="/play"
-                className="ml-3 text-signal underline decoration-signal/40 underline-offset-2 hover:decoration-signal"
-              >
-                Preview simulator
-              </a>
+              One-to-one GTM page · live resolve
             </p>
+            {stats && (
+              <p className="mt-2 font-mono text-[10px] text-mute">
+                {stats.visitors.toLocaleString()} visitors on this deploy ·{" "}
+                {stats.pipeline.toLocaleString()} flagged for pipeline
+              </p>
+            )}
+            {isAdmin && (
+              <p className="mt-1">
+                <a
+                  href="/play"
+                  className="font-mono text-[10px] text-signal underline decoration-signal/40 underline-offset-2"
+                >
+                  Preview simulator
+                </a>
+                <span className="ml-2 font-mono text-[9px] text-mute">admin</span>
+              </p>
+            )}
             <VisitorIdentityStrip
               company={statusCompany}
               person={statusPerson}
               source={identity?.source}
+              isAdmin={isAdmin}
             />
             <HeroBlock
               h1={display.h1}
@@ -286,16 +335,21 @@ export function Landing({ visitorId, identity, isDemo, demoParam, playParam }: P
                 </div>
               ))}
             </div>
-            <div className="mt-20">
-              <LogoStripDual company={statusCompany} archetype={archetype} />
-            </div>
           </div>
         </section>
+        <section className="border-b border-line bg-cream px-4 pb-20 md:px-12">
+          <div className="mx-auto max-w-content pt-8 md:pt-12">
+            <LogoStripDual company={statusCompany} archetype={archetype} />
+          </div>
+        </section>
+        <ProblemSection />
         <ServicesGrid />
         <HowItWorks getPayload={plumbing} />
         <CaseStudies company={statusCompany} />
-        <div className="mx-auto max-w-content px-6 py-20 md:px-12">
-          <TeamBlock />
+        <div className="border-b border-line bg-cream">
+          <div className="mx-auto max-w-content px-6 py-20 md:px-12">
+            <TeamBlock />
+          </div>
         </div>
         <Suspense>
           <CalendlySection
@@ -313,6 +367,7 @@ export function Landing({ visitorId, identity, isDemo, demoParam, playParam }: P
         streamProgress={streamP}
         tElapsed={tEl}
         onOpenPlumbing={plumbing}
+        identifyMsHint="340"
       />
     </div>
   );

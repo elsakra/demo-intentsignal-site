@@ -10,9 +10,19 @@
 - **No Pusher** — the client polls `/api/identify-status` for ~45s. On `version` bump, **`reStream` triggers a new** `/api/personalize` **EventSource** so copy can update after RB2B merges a person.
 - **RB2B event names** are listened for under several aliases (`rb2b-identified`, `rb2b:identified`, etc.); the vendor’s actual event should be confirmed in their UI/docs.
 
-## How it works diagram
+## Fletch-style copy (2026 pass)
 
-- **No vendor names** in node labels; abstract stages only.
+- **Positioning:** Category anchor first (“GTM engineering agency for B2B SaaS”); lead with what we build, not metaphor. Archetype defaults and Claude system prompt in `lib/archetypes.ts` and `lib/claude.ts` follow that rule.
+- **Copy QA:** `pnpm lint:copy` greps for common filler tokens in `app/`, `components/`, `lib/` (the Claude system string must not embed those tokens literally, or the script will match).
+- **Admin chrome:** `?admin=1` (or `true` / `yes`) shows the preview simulator link and the real “Simulated” label; without it, simulated sessions show as “Live visit” so shared links do not look like a toy demo.
+
+## How it works diagram (marketing)
+
+- **Concrete pipeline** on the home page: Browser → RB2B → Vercel edge → **IPinfo** (not Apollo) → Claude → SSE → Slack (optional) → SDR. This matches the product stack; internal diagrams may still use abstract labels where useful.
+
+## Public stats
+
+- `GET/POST /api/visit-stats` — optional Vercel KV counters; if KV is not configured, **GET** returns seeded integers from `NEXT_PUBLIC_VISITOR_STATS_SEED_V` / `SEED_P`. **POST** bumps counts once per session (client `sessionStorage`).
 
 ## Claude
 

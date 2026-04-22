@@ -22,31 +22,15 @@ export function CalendlySection({ name, email }: Props) {
     <section id="book" className="scroll-mt-20 border-b border-line">
       <div className="border-t border-ink/30 bg-panel text-[#E9E3D4]">
         <div className="mx-auto max-w-content px-4 py-10 md:px-10">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-14">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,300px)_1fr] lg:gap-10">
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#8a8578]">
                 Book the teardown call
               </p>
-              <h2 className="mt-2 font-display text-[1.7rem] leading-[1.1] text-white sm:text-[2.1rem]">
-                20 minutes.
-                <br />
-                We will audit one thing in your GTM stack —{" "}
-                <em className="text-[#FF8A8A] not-italic font-light">live, for free</em>.
+              <h2 className="mt-2 font-display text-[1.7rem] leading-[1.1] text-white sm:text-[2.1rem] [text-wrap:balance]">
+                20 minutes. We will audit one live piece of your GTM stack and tell you what we
+                would ship in the first 30 days. Ballpark cost. No sales theater.
               </h2>
-              <ol className="mt-4 space-y-0 border-t border-line/30 text-[#D6D1BF]">
-                <li className="grid grid-cols-[28px_1fr] gap-2 border-b border-line/20 py-2.5 text-sm">
-                  <span className="pt-0.5 font-mono text-[#FF8A8A]">01</span>
-                  <span>What is broken in your current motion.</span>
-                </li>
-                <li className="grid grid-cols-[28px_1fr] gap-2 border-b border-line/20 py-2.5 text-sm">
-                  <span className="pt-0.5 font-mono text-[#FF8A8A]">02</span>
-                  <span>What we would build in the first 30 days.</span>
-                </li>
-                <li className="grid grid-cols-[28px_1fr] gap-2 py-2.5 text-sm">
-                  <span className="pt-0.5 font-mono text-[#FF8A8A]">03</span>
-                  <span>Ballpark pricing. No sales theater.</span>
-                </li>
-              </ol>
             </div>
             <div
               className="min-h-[360px] w-full min-w-0 border border-dashed border-[#3a3834] bg-[#1a1916] p-2"

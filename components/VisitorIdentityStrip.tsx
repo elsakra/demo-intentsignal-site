@@ -28,14 +28,18 @@ type Props = {
   company: CompanyProfile;
   person: PersonProfile | null;
   source: EnrichmentSource | undefined;
+  /** When false, do not show "Simulated" (internal demos still look "live"). */
+  isAdmin: boolean;
 };
 
 /**
  * “Wow” bar: company mark, name, size, role, tech, source pill.
  */
-export function VisitorIdentityStrip({ company, person, source = "ip" }: Props) {
+export function VisitorIdentityStrip({ company, person, source = "ip", isAdmin }: Props) {
   const showSource: EnrichmentSource = source;
-  const pill = sourcePill[showSource] ?? sourcePill.ip;
+  const pillRaw = sourcePill[showSource] ?? sourcePill.ip;
+  const pill =
+    !isAdmin && showSource === "simulated" ? "Live visit" : pillRaw;
   const initials = personInitials(person);
   const em = company.employees;
   const sizeLabel =
@@ -121,7 +125,7 @@ export function VisitorIdentityStrip({ company, person, source = "ip" }: Props) 
           <span
             className={cn(
               "font-mono text-[9px] font-medium uppercase tracking-wider",
-              showSource === "simulated" && "text-signal",
+              showSource === "simulated" && isAdmin && "text-signal",
               showSource === "demo" && "text-ink"
             )}
           >

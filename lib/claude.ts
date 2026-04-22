@@ -11,7 +11,17 @@ const copySchema = z.object({
   banner: z.string().nullable().optional(),
 });
 
-const SYSTEM = `You write landing page copy for IntentSignal.ai, a GTM engineering agency. Output JSON only, no markdown, no prose. Schema: {hero_h1: string, hero_subhead: string, cta: string, banner: string|null}. Hero h1: <14 words, references visitor's specific situation, no fluff words (unlock, supercharge, revolutionize, empower). Subhead: 2 sentences max, names one specific system we'd build and one similar client. CTA: <5 words, action verb. Banner: only if visitor has a recent high-signal event (funding, exec hire, product launch in last 30 days), else null. Voice: senior GTM engineer who's seen every stack and has opinions. Never sycophantic. Confident but specific.`;
+const SYSTEM = `You write B2B homepage copy for IntentSignal.ai, a GTM engineering agency. Follow Fletch PMM rules:
+
+(1) Lead with capability, not metaphor or benefit alone. The category is "GTM engineering agency" — do not invent new category names.
+(2) Anchor to that category; name specific clients only from this allowlist when relevant: Gong, Gainsight, Upside, Route, SPINS, Snap, Greenhouse, ClickUp, Vimeo, Starbucks, Albertsons, Avon, Dollar General.
+(3) Zero wordplay or alliteration for its own sake. Never use hollow SaaS marketing filler in output.
+(4) hero_h1: under 10 words. Include the visitor's first name OR company name OR a concrete stack gap—never a clever metaphor as the whole line.
+(5) hero_subhead: exactly 2 sentences. First names one specific deliverable (e.g. outbound system, paid ABM, visitor ID to Slack). Second names one similar client from the allowlist or says what we already shipped for a peer.
+(6) cta: 4-5 words, action verb, specific (e.g. "Book a teardown call"). Not "Get started" or "Learn more."
+(7) banner: null unless recentNews clearly signals funding, major exec hire, or product launch in the last 30 days; else null.
+
+Output JSON only, no markdown fences, no other keys. Schema: {"hero_h1":"","hero_subhead":"","cta":"","banner":null or string}.`;
 
 function userMessage(
   c: CompanyProfile,
@@ -20,7 +30,13 @@ function userMessage(
   const firstName = p?.firstName;
   const lastName = p?.lastName;
   const title = p?.title;
-  return `Visitor: ${firstName ?? "unknown"} ${lastName ?? ""}, ${title ?? "unknown role"} at ${c.name}.\nIndustry: ${c.industry}\nSize: ${c.employees == null ? "unknown" : `${c.employees} employees`}\nStack: ${(c.technologies || []).slice(0, 5).join(", ") || "unknown"}\nRecent signal: ${c.recentNews ?? "none"}\nOur relevant clients: ${filterRelevantClients(c).join(", ")}\nOur recent opps in their space: ${filterRelevantOpps(c).join(", ")}
+  return `Visitor: ${firstName ?? "unknown"} ${lastName ?? ""}, ${title ?? "unknown role"} at ${c.name}.
+Industry: ${c.industry}
+Size: ${c.employees == null ? "unknown" : `${c.employees} employees`}
+Stack: ${(c.technologies || []).slice(0, 5).join(", ") || "unknown"}
+Recent signal: ${c.recentNews ?? "none"}
+Relevant clients we have worked with (pick from if useful): ${filterRelevantClients(c).join(", ")}
+Recent opps in their space (for context only): ${filterRelevantOpps(c).join(", ")}
 
 Write the JSON now.`;
 }

@@ -32,10 +32,10 @@ const demos: Record<
       email: "alex.d@gong.io",
     },
     prebaked: {
-      hero_h1: "Gong: your *outbound* signal is in the data but not in the SDR handoff.",
+      hero_h1: "Alex, we already build what Gong’s peers run in GTM.",
       hero_subhead:
-        "We would wire a live visitor and intent path into a single GTM handoff the way we did for Upside—one pipeline, one owner, SDRs stop switching tabs.",
-      cta: "Book 20 minutes",
+        "We ship outbound pipelines, LinkedIn and Meta ABM, and custom revenue infrastructure — the same stack we built for Gainsight, Upside, and Route. If Gong wants what they have, the next step is a 20-minute teardown call.",
+      cta: "Book a teardown call",
       banner: null,
     },
   },
@@ -55,10 +55,10 @@ const demos: Record<
       email: "sam@clickup.com",
     },
     prebaked: {
-      hero_h1: "ClickUp: growth *touches* the product, but the GTM path still reads like 2015.",
+      hero_h1: "ClickUp: we run paid and outbound off first-party intent.",
       hero_subhead:
-        "We have built paid + outbound loops for B2B SaaS at this scale: first-party site intent into ad audiences, same stack we use on this page.",
-      cta: "See the teardown",
+        "We have built the LinkedIn, Meta, and on-site ID loops for B2B SaaS at this scale, including for Upside and Route. The stack running this page is the same class of system we would put on yours.",
+      cta: "Book a teardown call",
       banner: null,
     },
   },
@@ -78,10 +78,10 @@ const demos: Record<
       email: "morgan.l@starbucks.com",
     },
     prebaked: {
-      hero_h1: "Starbucks: *omni* spend should not be blind to on-site and app intent.",
+      hero_h1: "Starbucks: retail media should run on real site and app signals.",
       hero_subhead:
-        "We would wire first-party sessions into the same systems your retail media and CRM already trust—less lookalike, more of who actually shows up.",
-      cta: "Map one use case",
+        "We wire first-party sessions into the ad and CRM systems you already pay for, similar to work we did for Albertsons- and retail-class clients. If the goal is known visitors in-channel, that is a build, not a deck.",
+      cta: "Book a teardown call",
       banner: null,
     },
   },
@@ -101,10 +101,10 @@ const demos: Record<
       email: "riley.c@dollartree.com",
     },
     prebaked: {
-      hero_h1: "Dollar Tree: the *CPL* story is a first-party audience problem at your scale.",
+      hero_h1: "Dollar Tree: CPL is a first-party audience problem at your scale.",
       hero_subhead:
-        "We help retail brands route real sessions into the same ad + landing stack—similar work to the Route and Albertsons class of buildouts.",
-      cta: "Book a call",
+        "We route real sessions into paid and landing systems you already run, the same class of work we shipped for Route and other retail GTM orgs. We can map one use case in 20 minutes.",
+      cta: "Book a teardown call",
       banner: null,
     },
   },
@@ -124,10 +124,10 @@ const demos: Record<
       email: "jules@vimeo.com",
     },
     prebaked: {
-      hero_h1: "Vimeo: *pipeline* and product-led motion still fight for the same account view.",
+      hero_h1: "Vimeo: one account view for product-led and sales-led GTM.",
       hero_subhead:
-        "We would unify visitor ID, scoring, and outbound handoff in one GTM path—Gong-class execution without another generic sequence vendor.",
-      cta: "Teardown the stack",
+        "We unify visitor ID, scoring, and outbound handoff in one path — the same systems-class work we have shipped for B2B SaaS peers. No new sequence vendor; engineered routing and data.",
+      cta: "Book a teardown call",
       banner: null,
     },
   },
@@ -147,10 +147,10 @@ const demos: Record<
       email: "dana@hubspot.com",
     },
     prebaked: {
-      hero_h1: "HubSpot: the *GTM* platform story still breaks when the stack is all hub and no last mile.",
+      hero_h1: "HubSpot: the last mile between your hub and the field is engineering.",
       hero_subhead:
-        "We ship the glue work between data, ad, and SDR that deck vendors skip—built like product, with tests and owners.",
-      cta: "Scope one handoff",
+        "We ship the glue between data, ads, and SDR that slide decks skip — the same product-style builds we have delivered for Gainsight and Upside. One scoped handoff is enough to start.",
+      cta: "Book a teardown call",
       banner: null,
     },
   },
@@ -170,10 +170,10 @@ const demos: Record<
       email: "pat.j@salesforce.com",
     },
     prebaked: {
-      hero_h1: "Salesforce: *your* stack already sells GTM, but the internal motion still begs for bespoke glue.",
+      hero_h1: "Salesforce: enterprise GTM still needs custom routing and live visitors.",
       hero_subhead:
-        "We have built routing and live visitor paths at enterprise GTM orgs: fewer tickets, more shipped routes—same team size.",
-      cta: "Walk one route",
+        "We have built live visitor paths and internal routing for large GTM orgs: fewer Jira tickets, more shipped code paths, same team size. We can walk one route on a teardown call.",
+      cta: "Book a teardown call",
       banner: null,
     },
   },

@@ -4,15 +4,13 @@ export function MetaMomentFooter() {
       className="border border-ink bg-cream px-6 py-20 md:px-14"
       id="meta"
     >
-      <h2 className="font-display text-[2.2rem] leading-[0.95] tracking-[-0.025em] sm:text-4xl md:text-[3.2rem] lg:text-[4rem] [text-wrap:balance] [max-width:20ch]">
-        This page just{" "}
-        <em className="not-italic font-light text-signal">rewrote itself</em> for you.
-        That is what we build.
+      <h2 className="font-display text-[2.2rem] leading-[0.95] tracking-[-0.025em] text-ink [text-wrap:balance] sm:text-4xl md:text-[3.2rem] lg:text-[4rem] [max-width:24ch]">
+        This page just rewrote itself for you. That&apos;s what we build.
       </h2>
-      <p className="mt-6 max-w-[56ch] text-[0.9rem] leading-[1.45] text-ink-3 sm:text-base">
-        Everything you saw — the identification, the enrichment, the generated copy, the
-        module choices — is wired with the same stack we would put on your site, email,
-        and media.
+      <p className="prose-tight mt-6 max-w-[58ch] text-[15px] text-ink-3 [text-wrap:balance] sm:text-base">
+        Everything you saw — the identification, the enrichment, the Claude-generated copy, the
+        module choices — uses the same stack we would run on your site, your email programs, and
+        your media.
       </p>
       <a
         href="#book"
@@ -20,6 +18,10 @@ export function MetaMomentFooter() {
       >
         Book the call →
       </a>
+      <p className="prose-tight mt-10 max-w-[60ch] font-mono text-[10px] leading-[1.45] text-mute [text-wrap:balance]">
+        Shipped by a small team. Running on Vercel. The Slack thread that takes intro calls is
+        probably lighting up.
+      </p>
     </section>
   );
 }

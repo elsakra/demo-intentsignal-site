@@ -42,9 +42,21 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
+    font-size: 16px;
+    line-height: 1.4;
   }
   html {
     @apply font-sans;
+  }
+  .section-dark {
+    background: #0a0a0a;
+    color: #e9e3d4;
+  }
+  .prose-tight {
+    @apply text-base leading-[1.4] text-ink-3;
+  }
+  .section-dark .prose-tight {
+    color: #d6d1bf;
   }
   @media (prefers-reduced-motion: reduce) {
     *,
