@@ -313,6 +313,11 @@ export function Landing({
               cta={display.cta}
               banner={display.ban}
             />
+          </div>
+        </section>
+        <ProblemSection />
+        <section className="border-b border-line bg-cream px-4 pb-12 md:px-12">
+          <div className="mx-auto max-w-content">
             <div className="mt-8 grid min-h-0 grid-cols-2 border-y border-line sm:grid-cols-4 sm:divide-x sm:divide-line">
               {(
                 [
@@ -335,14 +340,11 @@ export function Landing({
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-        <section className="border-b border-line bg-cream px-4 pb-20 md:px-12">
-          <div className="mx-auto max-w-content pt-8 md:pt-12">
+            <div className="pt-12 md:pt-16">
             <LogoStripDual company={statusCompany} archetype={archetype} />
+            </div>
           </div>
         </section>
-        <ProblemSection />
         <ServicesGrid />
         <HowItWorks getPayload={plumbing} />
         <CaseStudies company={statusCompany} />
