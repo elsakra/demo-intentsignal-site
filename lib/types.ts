@@ -18,7 +18,7 @@ export type PersonProfile = {
   email: string | null;
 };
 
-export type EnrichmentSource = "ip" | "rb2b" | "demo";
+export type EnrichmentSource = "ip" | "rb2b" | "demo" | "simulated";
 
 export type StoredIdentity = {
   version: number;

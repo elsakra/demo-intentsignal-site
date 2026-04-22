@@ -1,22 +1,22 @@
 import type { CompanyProfile } from "./types";
 
 const CLIENTS = [
-  { id: "gainsight", label: "Gainsight" },
-  { id: "upside", label: "Upside" },
-  { id: "route", label: "Route" },
-  { id: "spins", label: "SPINS" },
-  { id: "snap", label: "Snap" },
+  { id: "gainsight", label: "Gainsight", domain: "gainsight.com" },
+  { id: "upside", label: "Upside", domain: "upside.com" },
+  { id: "route", label: "Route", domain: "route.com" },
+  { id: "spins", label: "SPINS", domain: "spins.com" },
+  { id: "snap", label: "Snap", domain: "snap.com" },
 ] as const;
 
 const OPPS = [
-  { id: "gong", label: "Gong" },
-  { id: "clickup", label: "ClickUp" },
-  { id: "greenhouse", label: "Greenhouse" },
-  { id: "albertsons", label: "Albertsons" },
-  { id: "avon", label: "Avon" },
-  { id: "starbucks", label: "Starbucks" },
-  { id: "vimeo", label: "Vimeo" },
-  { id: "dollar-general", label: "Dollar General" },
+  { id: "gong", label: "Gong", domain: "gong.io" },
+  { id: "clickup", label: "ClickUp", domain: "clickup.com" },
+  { id: "greenhouse", label: "Greenhouse", domain: "greenhouse.com" },
+  { id: "albertsons", label: "Albertsons", domain: "albertsons.com" },
+  { id: "avon", label: "Avon", domain: "avon.com" },
+  { id: "starbucks", label: "Starbucks", domain: "starbucks.com" },
+  { id: "vimeo", label: "Vimeo", domain: "vimeo.com" },
+  { id: "dollar-general", label: "Dollar General", domain: "dollargeneral.com" },
 ] as const;
 
 function norm(s: string) {
@@ -75,3 +75,4 @@ export function filterRelevantOpps(company: CompanyProfile): string[] {
 
 export const clientLogos = CLIENTS.map((c) => ({ ...c, file: `${c.id}.svg` }));
 export const oppLogos = OPPS.map((c) => ({ ...c, file: `${c.id}.svg` }));
+export { OPPS, CLIENTS };

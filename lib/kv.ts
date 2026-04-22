@@ -21,7 +21,7 @@ const storedSchema = z.object({
       email: z.string().nullable(),
     })
     .nullable(),
-  source: z.enum(["ip", "rb2b", "demo"]),
+  source: z.enum(["ip", "rb2b", "demo", "simulated"]),
   updatedAt: z.string(),
   archetype: z.string(),
   hasPerson: z.boolean(),

@@ -5,6 +5,7 @@ import { Nav } from "@/components/Nav";
 import { HeroBlock, toPublicFromArchetype } from "@/components/hero/HeroBlock";
 import { useStreamingText } from "@/components/hero/useStreamingText";
 import { LogoStripDual } from "@/components/sections/LogoStripDual";
+import { VisitorIdentityStrip } from "@/components/VisitorIdentityStrip";
 import { ServicesGrid } from "@/components/sections/ServicesGrid";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { CaseStudies } from "@/components/sections/CaseStudies";
@@ -30,6 +31,7 @@ type Props = {
   identity: IdentityHeaderPayload | null;
   isDemo: boolean;
   demoParam?: string;
+  playParam?: string;
 };
 
 function buildBaseCopy(identity: IdentityHeaderPayload | null): PublicHeroCopy {
@@ -37,7 +39,7 @@ function buildBaseCopy(identity: IdentityHeaderPayload | null): PublicHeroCopy {
   return toPublicFromArchetype(a);
 }
 
-export function Landing({ visitorId, identity, isDemo, demoParam }: Props) {
+export function Landing({ visitorId, identity, isDemo, demoParam, playParam }: Props) {
   const company0 = useMemo(
     () => toCompanyFromHeader(identity, undefined),
     [identity]
@@ -104,6 +106,7 @@ export function Landing({ visitorId, identity, isDemo, demoParam }: Props) {
     const u = new URL("/api/personalize", window.location.origin);
     u.searchParams.set("visitor_id", visitorId);
     if (demoParam) u.searchParams.set("demo", demoParam);
+    if (playParam) u.searchParams.set("play", playParam);
     const ev = new EventSource(u.toString());
     const on = (e: MessageEvent) => {
       if (!e.data) return;
@@ -143,7 +146,7 @@ export function Landing({ visitorId, identity, isDemo, demoParam }: Props) {
       ev.removeEventListener("message", on);
       ev.close();
     };
-  }, [visitorId, demoParam, isDemoParam, prebakedDemo, identity?.archetype, reStream]);
+  }, [visitorId, demoParam, playParam, isDemoParam, prebakedDemo, identity?.archetype, reStream]);
 
   // Poll identify-status
   useEffect(() => {
@@ -159,6 +162,7 @@ export function Landing({ visitorId, identity, isDemo, demoParam }: Props) {
       const u = new URL("/api/identify-status", window.location.origin);
       u.searchParams.set("visitor_id", visitorId);
       if (demoParam) u.searchParams.set("demo", demoParam);
+      if (playParam) u.searchParams.set("play", playParam);
       const r = await fetch(u.toString());
       if (!r.ok) return;
       const j = (await r.json()) as {
@@ -175,7 +179,7 @@ export function Landing({ visitorId, identity, isDemo, demoParam }: Props) {
       }
     }, 1000);
     return () => clearInterval(t);
-  }, [visitorId, demoParam, isDemoParam, ver]);
+  }, [visitorId, demoParam, playParam, isDemoParam, ver]);
 
   const lines: PipelineLine[] = useMemo(() => {
     const p = statusPerson;
@@ -216,6 +220,7 @@ export function Landing({ visitorId, identity, isDemo, demoParam }: Props) {
     const u = new URL("/api/identify-status", window.location.origin);
     u.searchParams.set("visitor_id", visitorId);
     if (demoParam) u.searchParams.set("demo", demoParam);
+    if (playParam) u.searchParams.set("play", playParam);
     const s = await fetch(u.toString());
     const st = s.ok ? await s.json() : {};
     return {
@@ -226,7 +231,7 @@ export function Landing({ visitorId, identity, isDemo, demoParam }: Props) {
       version: (st as { version?: number }).version,
       stream_excerpt: raw.slice(0, 500),
     };
-  }, [visitorId, demoParam, raw]);
+  }, [visitorId, demoParam, playParam, raw]);
 
   return (
     <div id="top" className="min-h-dvh">
@@ -241,7 +246,18 @@ export function Landing({ visitorId, identity, isDemo, demoParam }: Props) {
                 style={{ boxShadow: "0 0 0 3px rgba(220,38,38,0.15)" }}
               />
               LIVE · ONE-TO-ONE LANDING · DEMO
+              <a
+                href="/play"
+                className="ml-3 text-signal underline decoration-signal/40 underline-offset-2 hover:decoration-signal"
+              >
+                Preview simulator
+              </a>
             </p>
+            <VisitorIdentityStrip
+              company={statusCompany}
+              person={statusPerson}
+              source={identity?.source}
+            />
             <HeroBlock
               h1={display.h1}
               sub={display.sub}

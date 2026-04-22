@@ -9,8 +9,10 @@ import {
   newVisitorId,
 } from "@/lib/identify";
 import { demoToStored } from "@/lib/demoMode";
+import { parsePlayParam } from "@/lib/playIdentity";
 
 const COOKIE = "visitor_id";
+const PLAY_SESSION = "play_session";
 
 function setVisitorCookie(res: NextResponse, value: string) {
   res.cookies.set(COOKIE, value, {
@@ -56,6 +58,16 @@ export async function middleware(request: NextRequest) {
     if (demo) {
       applyIdentityHeaders(res, identityToHeaderPayload(demo));
       res.headers.set("x-demo", "1");
+      return res;
+    }
+  }
+
+  const playQ =
+    searchParams.get("play") ?? request.cookies.get(PLAY_SESSION)?.value;
+  if (playQ) {
+    const sim = parsePlayParam(playQ, visitorId);
+    if (sim) {
+      applyIdentityHeaders(res, identityToHeaderPayload(sim));
       return res;
     }
   }

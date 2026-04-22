@@ -1,12 +1,13 @@
 import { pickArchetype, getArchetypeById } from "@/lib/archetypes";
 import { streamPersonalized, parseClaudeTextToJson, DEFAULT_MODEL } from "@/lib/claude";
-import { getStoredIdentity, setStoredIdentity } from "@/lib/kv";
+import { setStoredIdentity } from "@/lib/kv";
 import { getDemoByQuery } from "@/lib/demoMode";
 import { cookies } from "next/headers";
 import {
   buildInitialIdentity,
   enrichFromIp,
 } from "@/lib/identify";
+import { resolveVisitorIdentity } from "@/lib/serverIdentity";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -45,7 +46,7 @@ export async function GET(req: Request) {
     }
   }
 
-  let id = await getStoredIdentity(visitorId);
+  let id = await resolveVisitorIdentity(visitorId, searchParams);
   if (!id) {
     const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
     if (ip) {

@@ -1,22 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { clientLogos, filterRelevantOpps } from "@/lib/content";
+import { clientLogos, filterRelevantOpps, OPPS } from "@/lib/content";
+import { CompanyMark } from "@/components/CompanyMark";
 import type { CompanyProfile } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { type Archetype } from "@/lib/archetypes";
 
-const oppList = [
-  { id: "gong", label: "Gong" },
-  { id: "clickup", label: "ClickUp" },
-  { id: "greenhouse", label: "Greenhouse" },
-  { id: "vimeo", label: "Vimeo" },
-  { id: "avon", label: "Avon" },
-  { id: "albertsons", label: "Albertsons" },
-  { id: "starbucks", label: "Starbucks" },
-  { id: "dollar-general", label: "Dollar General" },
-] as const;
+const oppList = OPPS;
 
 type Props = {
   company: CompanyProfile | null;
@@ -38,14 +29,18 @@ export function LogoStripDual({ company, archetype }: Props) {
         </div>
         <div className="logos flex flex-wrap items-center gap-7 p-4 md:gap-9">
           {clientLogos.map((c) => (
-            <Image
+            <div
               key={c.id}
-              src={`/logos/${c.file}`}
-              alt=""
-              width={100}
-              height={28}
-              className="h-7 w-auto"
-            />
+              className="flex h-7 min-w-0 max-w-[120px] items-center"
+              title={c.label}
+            >
+              <CompanyMark
+                domain={c.domain}
+                name={c.label}
+                size="md"
+                variant="bar"
+              />
+            </div>
           ))}
         </div>
       </div>
@@ -61,15 +56,24 @@ export function LogoStripDual({ company, archetype }: Props) {
             return (
               <motion.div
                 key={o.id}
-                className="inline-block"
+                className="inline-flex items-center gap-2"
                 initial={false}
                 animate={{ opacity: hit ? 1 : 0.4 }}
                 transition={{ duration: 0.4 }}
               >
+                <CompanyMark
+                  domain={o.domain}
+                  name={o.label}
+                  size="sm"
+                  className={cn(
+                    "border-ink/20",
+                    hit && "ring-1 ring-signal/40"
+                  )}
+                />
                 <span
                   className={cn(
-                    "font-display text-[22px] font-medium tracking-[-0.01em] text-ink",
-                    hit && "border-b border-signal pb-1"
+                    "font-display text-[16px] font-medium leading-none tracking-[-0.01em] text-ink sm:text-[18px]",
+                    hit && "border-b border-signal pb-0.5"
                   )}
                 >
                   {o.label}

@@ -6,7 +6,7 @@ import { Suspense } from "react";
 export default function HomePage({
   searchParams,
 }: {
-  searchParams: { demo?: string };
+  searchParams: { demo?: string; play?: string };
 }) {
   const h = headers();
   const visitorId = h.get("x-visitor-id") ?? "";
@@ -19,6 +19,7 @@ export default function HomePage({
         identity={identity}
         isDemo={isDemo}
         demoParam={searchParams?.demo}
+        playParam={searchParams?.play}
       />
     </Suspense>
   );

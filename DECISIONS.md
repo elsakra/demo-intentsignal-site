@@ -23,6 +23,16 @@
 
 - `next/font` **Newsreader** hit “Failed to find font override values” in this toolchain; a single `weight: "400"` is used. If you need 300/600, load extra weights or self-host a variable file.
 
+## Preview / simulator (`/play`)
+
+- **Shareable identity**: `?play=<base64url json>` (see `lib/playIdentity.ts` v1 schema) sets a **simulated** visitor in middleware with source `simulated` (order: `?demo=` first, then `?play=`, then `play_session` cookie, then IP). Same payload is resolved in Node for `/api/identify-status` and `/api/personalize` via `lib/serverIdentity.ts`.
+- **Long URLs**: if the home URL with `?play=` exceeds a safe length, the `/play` form `POST` `/api/preview-identity` sets an HttpOnly `play_session` cookie; middleware reads the same b64u string. **POST** is rate-limited with Vercel KV when `KV_*` is configured (see `app/api/preview-identity/route.ts`).
+
+## Logos (CompanyMark)
+
+- **No SSR fetch** to customer sites. Candidates: optional **logo.dev** (`NEXT_PUBLIC_LOGO_DEV_TOKEN`), then Clearbit, then Google favicons; **monogram** after failures. “Our clients” and “Recent opps” use the same `CompanyMark` with domains from `lib/content.ts`.
+- If you add a **strict** `Content-Security-Policy` later, add `img-src` for `https://img.logo.dev`, `https://logo.clearbit.com`, and `https://www.google.com`.
+
 ## Security
 
 - **Rotate** any API tokens that may have been pasted into chat, docs, or CI logs. Never commit `.env.local`.

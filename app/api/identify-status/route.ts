@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { getStoredIdentity, kvReady } from "@/lib/kv";
-import { getDemoByQuery } from "@/lib/demoMode";
+import { kvReady } from "@/lib/kv";
+import { resolveVisitorIdentity } from "@/lib/serverIdentity";
 
 export const runtime = "nodejs";
 
@@ -15,23 +15,7 @@ export async function GET(req: Request) {
       { status: 400 }
     );
   }
-  const demo = searchParams.get("demo");
-  if (demo) {
-    const d = getDemoByQuery(demo);
-    if (d) {
-      return NextResponse.json({
-        ok: true,
-        kv: kvReady(),
-        version: 1,
-        source: "demo" as const,
-        company: d.company,
-        person: d.person,
-        hasPerson: true,
-        updatedAt: new Date().toISOString(),
-      });
-    }
-  }
-  const st = await getStoredIdentity(visitorId);
+  const st = await resolveVisitorIdentity(visitorId, searchParams);
   if (!st) {
     return NextResponse.json({
       ok: true,
